@@ -1,6 +1,7 @@
 package com.hugojuarez.firstapp;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,8 +16,11 @@ public class HelloApplication extends Application {
     public void init() throws Exception {
         System.out.println("Before the App starts");
         System.out.println(Thread.currentThread().getName());
+    }
 
-        Thread.sleep(5000);
+    @Override
+    public void stop() throws Exception {
+        System.out.println("Closing the Application");
     }
 
     @Override
@@ -34,18 +38,11 @@ public class HelloApplication extends Application {
 
         Label label = new Label();
         Button button = new Button("Click Me!");
-        Button button1 = new Button("Block");
+        Button button1 = new Button("Exit explicitly");
 
         // Adding button action
         button.setOnAction(e -> label.setText("Welcome to JavaFX Application!"));
-        button1.setOnAction(e -> {
-            System.out.println("UI now blocked");
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-        });
+        button1.setOnAction(e -> Platform.exit());
 
         // Adding to a layout
         root.getChildren().addAll(label, button, button1);
