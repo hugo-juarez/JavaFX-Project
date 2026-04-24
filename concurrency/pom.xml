@@ -36,7 +36,10 @@
                         <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.hugojuarez.Main</mainClass>
+                            <mainClass>com.hugojuarez/com.hugojuarez.Main</mainClass>
+                            <options>
+                                <option>--enable-native-access=javafx.graphics</option>
+                            </options>
                         </configuration>
                     </execution>
                 </executions>
