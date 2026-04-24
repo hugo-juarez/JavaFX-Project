@@ -61,7 +61,7 @@ public class WorkerUI extends GridPane{
                 .otherwise(worker.workDoneProperty().asString()));
         progress.textProperty().bind(new When(worker.progressProperty().isEqualTo(-1))
                 .then("Unknown")
-                .otherwise(worker.progressProperty().multiply(100).asString("%.2f%")));
+                .otherwise(worker.progressProperty().multiply(100).asString("%.2f%%")));
         progressBar.progressProperty().bind(worker.progressProperty());
         value.textProperty().bind(worker.valueProperty().asString());
         worker.exceptionProperty().addListener((observable, oldValue, newValue) -> {
