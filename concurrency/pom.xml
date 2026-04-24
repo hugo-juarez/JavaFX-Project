@@ -36,7 +36,7 @@
                         <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.hugojuarez.App</mainClass>
+                            <mainClass>com.hugojuarez.Main</mainClass>
                         </configuration>
                     </execution>
                 </executions>
