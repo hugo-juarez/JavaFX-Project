@@ -16,24 +16,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        VBox root = new VBox();
-        root.setAlignment(Pos.CENTER);
-        root.setSpacing(10);
-        Button stopUI = new Button("Stop UI");
-        Button exit = new Button("Exit");
-        stopUI.setOnAction(e -> {
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-        });
-        exit.setOnAction(e -> Platform.exit());
-        root.getChildren().addAll(stopUI, exit);
-        Scene scene = new Scene(root, 500, 450);
-        stage.setScene(scene);
-        stage.setTitle("Concurrency");
-        stage.show();
+
     }
 
     public static void main(String[] args) {
