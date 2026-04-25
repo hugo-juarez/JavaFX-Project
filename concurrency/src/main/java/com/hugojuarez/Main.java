@@ -1,6 +1,9 @@
 package com.hugojuarez;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -15,29 +18,39 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     Button startBtn = new Button("Start");
+    Button resetBtn = new Button("Reset");
     Button cancelBtn = new Button("Cancel");
     Button exitBtn = new Button("Exit");
+    boolean started = false;
 
-    EvenNumberTask task = new EvenNumberTask(1, 20, 1000);
+    Service<ObservableList<Integer>> service = new Service<>() {
+
+        @Override
+        protected Task<ObservableList<Integer>> createTask() {
+            return new EvenNumberTask(1, 20, 1000);
+        }
+    };
 
     @Override
     public void start(Stage stage) {
         startBtn.setOnAction(e -> {
-            Thread bgThread = new Thread(task);
-            bgThread.setDaemon(true);
-            bgThread.start();
+            if (!started) {
+                service.start();
+                started = true;
+                startBtn.setText("Restart");
+            } else {
+                service.restart();
+            }
         });
 
-        cancelBtn.setOnAction(e -> {
-            task.cancel();
-        });
+        resetBtn.setOnAction( e -> service.reset());
 
-        exitBtn.setOnAction(e -> {
-            stage.close();
-        });
+        cancelBtn.setOnAction(e -> service.cancel());
 
-        GridPane pane = new WorkerUI(task);
-        HBox box = new HBox(5, startBtn, cancelBtn, exitBtn);
+        exitBtn.setOnAction(e -> stage.close());
+
+        GridPane pane = new WorkerUI(service);
+        HBox box = new HBox(5, startBtn, resetBtn, cancelBtn, exitBtn);
         BorderPane root = new BorderPane();
         root.setCenter(pane);
         root.setBottom(box);

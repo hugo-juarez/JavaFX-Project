@@ -1,2 +1,6 @@
+com/hugojuarez/Main$1.class
+com/hugojuarez/WorkerUI.class
+com/hugojuarez/EvenNumberTask.class
 module-info.class
 com/hugojuarez/Main.class
+com/hugojuarez/EvenNumberUtil.class
